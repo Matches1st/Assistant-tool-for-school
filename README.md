@@ -29,16 +29,15 @@ A highly accurate, client-side clone of the Google Gemini web interface, built w
 
 ## Important: Rate Limits & API Keys (2026 Update)
 
-Google has significantly reduced the limits for the free tier of the Gemini API.
+This application has been updated to use **Gemini 2.5 Flash** as the 1.5 series is now deprecated.
 
-*   **Free Limits:** Approximately **20-50 requests per day** per key. Each message sent counts as 1 request.
-*   **Reset Time:** Limits typically reset every 24 hours.
-*   **Model:** This app uses `gemini-1.5-flash-latest` which offers the best balance of speed and availability for free usage.
+*   **Free Limits:** Approximately **500 requests per day** per key on the free tier.
+*   **Model:** `gemini-2.5-flash` (Stable).
+*   **Capabilities:** Improved text reasoning, image analysis, and search grounding.
 
 **Strategies to handle limits:**
-1.  **Multiple Keys:** Create 2-3 free API keys in Google AI Studio and switch between them using the "Change API Key" button in the sidebar when one runs out.
-2.  **Pay-as-you-go:** Enable billing in Google Cloud Console. The costs for Gemini Flash are extremely low ($0.075 / 1 million input tokens), making it a very affordable option for personal heavy use.
-3.  **Wait:** Simply wait for the daily quota to reset.
+1.  **Pay-as-you-go:** Enable billing in Google Cloud Console. The costs for Gemini Flash are extremely low, making it a very affordable option for personal heavy use.
+2.  **Multiple Keys:** Create free API keys in Google AI Studio and switch between them using the "Change API Key" button in the sidebar if you hit limits.
 
 ## Deployment & Referrer Restrictions
 
@@ -51,9 +50,9 @@ When deploying to services like **Netlify** or **Vercel**, your API calls will f
 4.  **Option B (Secure):** Set "Client restriction" to **Websites** and add your specific Netlify domain (e.g., `https://your-app.netlify.app/*`) AND `http://localhost:*` (for development).
 
 ## Troubleshooting
-*   **"Rate limit reached":** You hit the ~50 requests/day limit. Use a new key or wait.
+*   **"Rate limit reached":** You hit the daily request limit. Use a new key or wait 24 hours.
+*   **"The requested model is not available":** Ensure you are using a valid API key that has access to `gemini-2.5-flash`.
 *   **"I'm sorry, something went wrong":** This usually means your API Key is restricted. Use the "Change API Key" button to try a different key or check browser console for 403 errors.
-*   **Model not found:** The app defaults to `gemini-1.5-flash-latest`. If you changed the code to use a Pro model, you may hit stricter limits or need billing enabled.
 
 ## Deploy to Netlify
 

@@ -146,7 +146,7 @@ const InputArea: React.FC<InputAreaProps> = ({ onSend, isLoading }) => {
       <div className="text-center text-xs text-gray-500 mt-2 flex flex-col items-center gap-1">
         <p>Gemini may display inaccurate info, so double-check its responses.</p>
         <p className="opacity-70 text-[10px] md:text-xs">
-          Free keys have low daily limits (~50 msgs/day). Consider <a href="https://ai.google.dev/pricing" target="_blank" rel="noopener noreferrer" className="underline hover:text-gray-300">pay-as-you-go</a> for heavier use.
+          Using Gemini 2.5 Flash (free tier with limits). For more usage/search, <a href="https://ai.google.dev/pricing" target="_blank" rel="noopener noreferrer" className="underline hover:text-gray-300">enable pay-as-you-go</a>.
         </p>
       </div>
     </div>

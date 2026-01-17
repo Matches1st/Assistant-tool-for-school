@@ -69,13 +69,13 @@ const LandingPage: React.FC<LandingPageProps> = ({ onSaveKey }) => {
           <div className="flex gap-2 items-start">
             <Info className="w-5 h-5 flex-shrink-0 mt-0.5" />
             <div className="space-y-2">
-              <p className="font-medium">Recent Rate Limit Changes (2026)</p>
+              <p className="font-medium">Upgraded to Gemini 2.5 Flash</p>
               <p className="opacity-90 leading-relaxed">
-                Google has lowered free tier limits to <strong>~20-50 requests/day</strong> per key.
+                We have switched to <strong>gemini-2.5-flash</strong> for better performance. 
               </p>
               <ul className="list-disc pl-4 opacity-80 space-y-1 mt-1">
-                 <li>Wait 24 hours for limits to reset</li>
-                 <li>Create multiple free keys to switch between</li>
+                 <li>~500 free requests/day (Free Tier)</li>
+                 <li>Supports images, audio, and search grounding</li>
                  <li>Enable <a href="https://ai.google.dev/pricing" target="_blank" rel="noopener noreferrer" className="underline hover:text-white">Pay-as-you-go</a> for higher limits</li>
               </ul>
             </div>

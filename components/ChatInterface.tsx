@@ -283,7 +283,7 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ onChangeKey }) => {
       } else if (errString.includes("401") || errString.includes("API key not valid")) {
         errorMessage = "Invalid API Key. Please update your key.";
       } else if (errString.includes("429")) {
-        errorMessage = "Rate limit reached (free tier ~20-50 requests/day). Try again tomorrow, use a different key via 'Change API Key', or enable pay-as-you-go billing for higher limits.";
+        errorMessage = "Rate limit reached. Try again later, use a different key, or enable pay-as-you-go billing.";
       } else if (errString.includes("404") || errString.includes("not found")) {
         errorMessage = "The requested model is not available for this API key. Please check your project settings.";
       } else if (errString.includes("fetch failed")) {
@@ -354,12 +354,12 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ onChangeKey }) => {
              <div className="flex items-center gap-2" >
                 <span className="text-xl font-semibold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">Gemini</span>
                 <span className="text-xs text-gray-400 border border-gray-600 px-2 py-0.5 rounded hidden sm:inline-flex items-center gap-1 group relative cursor-help">
-                  1.5 Flash
+                  2.5 Flash
                   <Info size={10} className="text-gray-500 group-hover:text-blue-400" />
                   <div className="absolute top-full left-0 mt-2 w-48 p-2 bg-gray-800 text-xs text-gray-300 rounded shadow-xl border border-gray-700 invisible group-hover:visible z-50">
-                     Model: gemini-1.5-flash-latest
+                     Model: gemini-2.5-flash
                      <br/>
-                     Limit: ~20-50 daily requests (free tier)
+                     Limits apply (Free Tier)
                   </div>
                 </span>
              </div>
