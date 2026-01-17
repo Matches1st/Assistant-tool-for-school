@@ -27,9 +27,21 @@ A highly accurate, client-side clone of the Google Gemini web interface, built w
     npm run build
     ```
 
-## Deployment & API Keys
+## Important: Rate Limits & API Keys (2026 Update)
 
-### Important: API Key Restrictions
+Google has significantly reduced the limits for the free tier of the Gemini API.
+
+*   **Free Limits:** Approximately **20-50 requests per day** per key. Each message sent counts as 1 request.
+*   **Reset Time:** Limits typically reset every 24 hours.
+*   **Model:** This app uses `gemini-1.5-flash-latest` which offers the best balance of speed and availability for free usage.
+
+**Strategies to handle limits:**
+1.  **Multiple Keys:** Create 2-3 free API keys in Google AI Studio and switch between them using the "Change API Key" button in the sidebar when one runs out.
+2.  **Pay-as-you-go:** Enable billing in Google Cloud Console. The costs for Gemini Flash are extremely low ($0.075 / 1 million input tokens), making it a very affordable option for personal heavy use.
+3.  **Wait:** Simply wait for the daily quota to reset.
+
+## Deployment & Referrer Restrictions
+
 When deploying to services like **Netlify** or **Vercel**, your API calls will fail if your API key has HTTP Referrer restrictions that do not match your deployed domain.
 
 **To fix "Access Denied" or "403" errors:**
@@ -38,10 +50,10 @@ When deploying to services like **Netlify** or **Vercel**, your API calls will f
 3.  **Option A (Easiest):** Set "Client restriction" to **None**. This allows the key to work on localhost and any deployed URL.
 4.  **Option B (Secure):** Set "Client restriction" to **Websites** and add your specific Netlify domain (e.g., `https://your-app.netlify.app/*`) AND `http://localhost:*` (for development).
 
-### Troubleshooting
-*   **"I'm sorry, something went wrong":** This usually means your API Key is restricted. Use the "Change API Key" button in the sidebar to try a different key or use the "Test Key" feature.
-*   **429 Error:** You have exceeded the free tier rate limits (RPM/TPM). Wait a minute and try again.
-*   **Model not found:** The app defaults to `gemini-1.5-flash` which is widely available. If you changed the code to use a restricted model, revert it.
+## Troubleshooting
+*   **"Rate limit reached":** You hit the ~50 requests/day limit. Use a new key or wait.
+*   **"I'm sorry, something went wrong":** This usually means your API Key is restricted. Use the "Change API Key" button to try a different key or check browser console for 403 errors.
+*   **Model not found:** The app defaults to `gemini-1.5-flash-latest`. If you changed the code to use a Pro model, you may hit stricter limits or need billing enabled.
 
 ## Deploy to Netlify
 

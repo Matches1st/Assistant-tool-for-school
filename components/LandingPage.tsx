@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ArrowRight, Key, Loader2, AlertCircle, CheckCircle } from 'lucide-react';
+import { ArrowRight, Key, Loader2, AlertCircle, CheckCircle, Info } from 'lucide-react';
 import { testApiKey } from '../lib/gemini';
 
 interface LandingPageProps {
@@ -33,7 +33,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onSaveKey }) => {
         } else if (error.message.includes('400')) {
           msg = "Invalid key format or project configuration.";
         } else if (error.message.includes('429')) {
-          msg = "Quota exceeded. Try again later.";
+          msg = "Quota exceeded. This key has reached its daily limit.";
         }
       }
       setErrorMessage(msg);
@@ -50,12 +50,12 @@ const LandingPage: React.FC<LandingPageProps> = ({ onSaveKey }) => {
   };
 
   return (
-    <div className="min-h-screen bg-gemini-dark text-gemini-text flex flex-col items-center justify-center px-4 relative overflow-hidden">
+    <div className="min-h-screen bg-gemini-dark text-gemini-text flex flex-col items-center justify-center px-4 relative overflow-hidden overflow-y-auto">
       {/* Background decoration */}
       <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-blue-600/10 rounded-full blur-[100px]"></div>
       <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-purple-600/10 rounded-full blur-[100px]"></div>
 
-      <div className="max-w-md w-full z-10">
+      <div className="max-w-md w-full z-10 py-10">
         <div className="text-center mb-8">
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-blue-500/20 to-purple-500/20 mb-6 border border-white/5">
             <span className="text-2xl">✨</span>
@@ -64,11 +64,30 @@ const LandingPage: React.FC<LandingPageProps> = ({ onSaveKey }) => {
           <p className="text-gray-400">To get started, please enter your Gemini API key.</p>
         </div>
 
+        {/* Rate Limit Warning */}
+        <div className="bg-blue-500/10 border border-blue-500/20 rounded-lg p-4 mb-4 text-sm text-blue-200">
+          <div className="flex gap-2 items-start">
+            <Info className="w-5 h-5 flex-shrink-0 mt-0.5" />
+            <div className="space-y-2">
+              <p className="font-medium">Recent Rate Limit Changes (2026)</p>
+              <p className="opacity-90 leading-relaxed">
+                Google has lowered free tier limits to <strong>~20-50 requests/day</strong> per key.
+              </p>
+              <ul className="list-disc pl-4 opacity-80 space-y-1 mt-1">
+                 <li>Wait 24 hours for limits to reset</li>
+                 <li>Create multiple free keys to switch between</li>
+                 <li>Enable <a href="https://ai.google.dev/pricing" target="_blank" rel="noopener noreferrer" className="underline hover:text-white">Pay-as-you-go</a> for higher limits</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        {/* Restriction Warning */}
         <div className="bg-yellow-500/10 border border-yellow-500/20 rounded-lg p-4 mb-6 text-sm text-yellow-200">
           <div className="flex gap-2 items-start">
             <AlertCircle className="w-5 h-5 flex-shrink-0 mt-0.5" />
             <div>
-              <strong>Important for Deployment:</strong> Your API key must have <u>NO HTTP referrer restrictions</u> (or allow <code>*.netlify.app</code>). Keys are stored client-side only.
+              <strong>Deployment Requirement:</strong> Your API key must have <u>NO HTTP referrer restrictions</u> (or allow <code>*.netlify.app</code>). Keys are stored locally in your browser.
             </div>
           </div>
         </div>
