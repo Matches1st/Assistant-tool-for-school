@@ -30,6 +30,27 @@ const InputArea: React.FC<InputAreaProps> = ({ onSend, isLoading }) => {
     }
   };
 
+  const handlePaste = (e: React.ClipboardEvent<HTMLTextAreaElement>) => {
+    const items = e.clipboardData.items;
+    
+    for (let i = 0; i < items.length; i++) {
+      if (items[i].type.indexOf('image') !== -1) {
+        // Prevent default behavior only if we are pasting ONLY images to avoid duplicate pasting issues if browser handles it weirdly,
+        // but typically we just want to intercept the file.
+        const blob = items[i].getAsFile();
+        if (blob) {
+          const reader = new FileReader();
+          reader.onload = (event) => {
+            if (typeof event.target?.result === 'string') {
+              setImages(prev => [...prev, event.target!.result as string]);
+            }
+          };
+          reader.readAsDataURL(blob);
+        }
+      }
+    }
+  };
+
   const handleSend = () => {
     if ((!input.trim() && images.length === 0) || isLoading) return;
     onSend(input, images);
@@ -105,6 +126,7 @@ const InputArea: React.FC<InputAreaProps> = ({ onSend, isLoading }) => {
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={handleKeyDown}
+            onPaste={handlePaste}
             placeholder="Enter a prompt here"
             className="w-full bg-transparent text-gemini-text placeholder-gray-500 text-lg resize-none focus:outline-none py-3 max-h-[200px]"
             rows={1}

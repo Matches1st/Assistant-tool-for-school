@@ -7,6 +7,7 @@ import MessageBubble from './MessageBubble';
 import InputArea from './InputArea';
 import Sidebar from './Sidebar';
 import ConfirmModal from './ConfirmModal';
+import ImageModal from './ImageModal';
 import { Sparkles, Menu } from 'lucide-react';
 
 const ChatInterface: React.FC = () => {
@@ -28,6 +29,9 @@ const ChatInterface: React.FC = () => {
     title: '',
     message: ''
   });
+
+  // Image View State
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
   // Derived state: Current messages
   const currentChat = chats.find(c => c.id === currentChatId);
@@ -297,6 +301,13 @@ const ChatInterface: React.FC = () => {
         message={modalConfig.message}
       />
 
+      {/* Image Modal */}
+      <ImageModal
+        isOpen={!!selectedImage}
+        src={selectedImage}
+        onClose={() => setSelectedImage(null)}
+      />
+
       {/* Sidebar */}
       <Sidebar 
         isOpen={isSidebarOpen} 
@@ -345,7 +356,11 @@ const ChatInterface: React.FC = () => {
           ) : (
             <div className="flex flex-col">
               {messages.map(msg => (
-                <MessageBubble key={msg.id} message={msg} />
+                <MessageBubble 
+                  key={msg.id} 
+                  message={msg} 
+                  onImageClick={(src) => setSelectedImage(src)}
+                />
               ))}
             </div>
           )}

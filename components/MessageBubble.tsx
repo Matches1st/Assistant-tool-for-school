@@ -6,9 +6,10 @@ import { ChatMessage, GroundingChunk } from '../types';
 
 interface MessageBubbleProps {
   message: ChatMessage;
+  onImageClick?: (src: string) => void;
 }
 
-const MessageBubble: React.FC<MessageBubbleProps> = ({ message }) => {
+const MessageBubble: React.FC<MessageBubbleProps> = ({ message, onImageClick }) => {
   const isUser = message.role === 'user';
   const [copied, setCopied] = React.useState(false);
 
@@ -43,7 +44,8 @@ const MessageBubble: React.FC<MessageBubbleProps> = ({ message }) => {
                    key={idx} 
                    src={img} 
                    alt="User upload" 
-                   className="max-w-[200px] max-h-[200px] rounded-xl border border-gray-700 object-cover" 
+                   onClick={() => onImageClick?.(img)}
+                   className="max-w-[200px] max-h-[200px] rounded-xl border border-gray-700 object-cover cursor-pointer hover:opacity-90 transition-opacity" 
                  />
                ))}
              </div>
